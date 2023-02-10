@@ -16,7 +16,7 @@ const crearConexion = async () => {
     });
   }
 
-  return await conexion.crearConexion();
+  return await conexion.getConnection();
 };
 
 module.exports = { crearConexion };
