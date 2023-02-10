@@ -4,16 +4,16 @@
 
 ## Rutas
 
-- GET /usuario/:id => Información usuario.
-- POST /usuario => Registro de usuario(El usuario con id: 1, será el administrador).
-
-- POST /login => Login usuario.
+- GET /usuarios/:id => Información usuario.
+- POST /usuarios => Registro de usuario(El usuario con id: 1, será el administrador).
+- POST /usuarios/login => Login usuario.
 
 - GET / => Lista todos los temas a tratar.
-- POST / => Permite crear un tema(admin)
+- GET /:idTema => Comentarios sobre un tema.
+- POST / => Permite crear un tema(admin).
 
 - POST /:idTema/comentario => Crea un comentario en un tema(con 1 imagen opcional).
-- DELETE /:idTema/comentario => Borra un comentario(usuario que lo creó / admin)
+- DELETE /:idTema/comentario => Borra un comentario(usuario que lo creó / admin).
 
 ## Importante
 
