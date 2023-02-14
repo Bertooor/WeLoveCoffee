@@ -50,7 +50,7 @@ async function main() {
             id INT PRIMARY KEY AUTO_INCREMENT,
             usuario_id INT NOT NULL,
             tema_id INT NOT NULL,
-            texto VARCHAR(1000),
+            texto VARCHAR(1000) NOT NULL,
             imagen VARCHAR(150),
             fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
