@@ -1,3 +1,4 @@
+const { generaError } = require("../funcionesAyuda");
 const { crearConexion } = require("./conexionBD");
 
 const nuevoComentarioBD = async (usuario_id, tema_id, texto, imagen = "") => {
@@ -20,4 +21,77 @@ const nuevoComentarioBD = async (usuario_id, tema_id, texto, imagen = "") => {
   }
 };
 
-module.exports = nuevoComentarioBD;
+const listaComentariosBD = async (tema_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [listaComentarios] = await conexion.query(
+      `
+      SELECT *
+      FROM comentarios
+      WHERE tema_id = ?
+      ORDER BY fecha_creacion DESC
+    `,
+      [tema_id]
+    );
+
+    return listaComentarios;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const comentarioBD = async (comentario_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [comentario] = await conexion.query(
+      `
+      SELECT *
+      FROM comentarios
+      WHERE id = ?
+    `,
+      [comentario_id]
+    );
+
+    if (comentario.length === 0) {
+      generaError(`El comentario con id: ${comentario_id} no existe.`, 404);
+    }
+
+    return comentario[0];
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const borrarComentarioBD = async (comentario_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [comentario] = await conexion.query(
+      `
+      DELETE 
+      FROM comentarios
+      WHERE id = ?
+    `,
+      [comentario_id]
+    );
+
+    return;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+module.exports = {
+  nuevoComentarioBD,
+  listaComentariosBD,
+  comentarioBD,
+  borrarComentarioBD,
+};
