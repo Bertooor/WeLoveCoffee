@@ -6,7 +6,10 @@ const autorizacionUsuario = (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      generaError("Falta la cabecera de autorización.", 401);
+      generaError(
+        "Lo siento no tienes permisos para este tipo de acción. Inicia sesión.",
+        401
+      );
     }
 
     let token;
@@ -14,11 +17,11 @@ const autorizacionUsuario = (req, res, next) => {
     try {
       token = jwt.verify(authorization, process.env.JWT_SECRETO);
     } catch {
-      generaError("Token incorrecto.", 401);
+      generaError("Autorización incorrecta o caducada.", 401);
     }
 
     // Creo propiedad con los datos del token
-    req.autorizacion = token;
+    req.autorizacion = token.id;
 
     next();
   } catch (error) {
@@ -26,4 +29,19 @@ const autorizacionUsuario = (req, res, next) => {
   }
 };
 
-module.exports = autorizacionUsuario;
+const esAdmin = (req, res, next) => {
+  try {
+    console.log("req.autorizacion: ", req.autorizacion);
+    if (req.autorizacion !== 1) {
+      generaError(
+        "Lo siento no tienes permisos para este tipo de acción.",
+        401
+      );
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { autorizacionUsuario, esAdmin };

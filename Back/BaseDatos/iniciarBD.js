@@ -41,6 +41,7 @@ async function main() {
         CREATE TABLE temas (
             id INT PRIMARY KEY AUTO_INCREMENT,
             tema VARCHAR(100) UNIQUE NOT NULL,
+            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
             imagen VARCHAR(150)
         )
     `);

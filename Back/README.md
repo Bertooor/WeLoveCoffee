@@ -9,13 +9,16 @@
 - POST /usuarios/login => Login usuario.
 
 - GET / => Lista todos los temas a tratar.
-- GET /:idTema => Comentarios sobre un tema.
 - POST / => Permite crear un tema(admin).
 
-- POST /:idTema/comentario => Crea un comentario en un tema(con 1 imagen opcional).
-- DELETE /:idTema/comentario => Borra un comentario(usuario que lo creó / admin).
+- GET /comentario/:comentario_id => Información sobre un comentario.
+- GET /:tema_id/comentario => Lista de comentarios sobre un tema.
+- POST /:tema_id/comentario => Crea un comentario en un tema(con 1 imagen opcional).
+- DELETE /comentario/:comentario_id => Borra un comentario(usuario que lo creó / admin).
 
 ## Importante
 
 - npm i => Para instalar las dependencias necesarias.
 - Tener una base de datos creada con anterioridad para poder crear las tablas.
+- El admin también tiene que estar logueado para acceder.
+- Colocar el middleware de autorizacionUsuario antes de esAdmin para mayor seguridad.

@@ -1,4 +1,9 @@
-const nuevoComentarioBD = require("../BaseDatos/comentariosBD");
+const {
+  nuevoComentarioBD,
+  listaComentariosBD,
+  comentarioBD,
+  borrarComentarioBD,
+} = require("../BaseDatos/comentariosBD");
 const { crearRuta, generaError } = require("../funcionesAyuda");
 const path = require("path");
 const sharp = require("sharp");
@@ -40,7 +45,7 @@ const nuevoComentario = async (req, res, next) => {
 
     res.send({
       estado: "ok",
-      mensaje: `Nuevo comentario con id: ${id}`,
+      mensaje: `Nuevo comentario con id: ${id}.`,
     });
   } catch (error) {
     next(error);
@@ -49,13 +54,60 @@ const nuevoComentario = async (req, res, next) => {
 
 const borrarComentario = async (req, res, next) => {
   try {
+    const { comentario_id } = req.params;
+
+    const comentario = await comentarioBD(comentario_id);
+
+    // req.autorizacion.id = información del token
+    if (req.autorizacion.id !== comentario.usuario_id) {
+      generaError("No puedes borrar un comentario de otro usuario.", 401);
+    }
+
+    await borrarComentarioBD(comentario_id);
+
     res.send({
       estado: "error",
-      mensaje: "Comentario borrado.",
+      mensaje: `Comentario con id: ${comentario_id} borrado.`,
     });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { nuevoComentario, borrarComentario };
+const listaComentarios = async (req, res, next) => {
+  try {
+    const { tema_id } = req.params;
+
+    const comentarios = await listaComentariosBD(tema_id);
+    res.send({
+      estado: "ok",
+      mensaje: "Listado de comentarios.",
+      datos: comentarios,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verComentario = async (req, res, next) => {
+  try {
+    const { comentario_id } = req.params;
+
+    const comentario = await comentarioBD(comentario_id);
+
+    res.send({
+      estado: "ok",
+      mensaje: `Comentario con id: ${comentario_id}.`,
+      datos: comentario,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  nuevoComentario,
+  borrarComentario,
+  listaComentarios,
+  verComentario,
+};

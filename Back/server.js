@@ -13,14 +13,16 @@ const {
   login,
 } = require("./Controladores/usuarios");
 
-const { listaTemas, infoTema, nuevoTema } = require("./Controladores/temas");
+const { listaTemas, nuevoTema } = require("./Controladores/temas");
 
 const {
   nuevoComentario,
   borrarComentario,
+  listaComentarios,
+  verComentario,
 } = require("./Controladores/comentarios");
 
-const autorizacionUsuario = require("./Middlewares/autorizacion");
+const { autorizacionUsuario, esAdmin } = require("./Middlewares/autorizacion");
 
 const app = express();
 
@@ -28,17 +30,20 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(fileUpload());
+// Para poder utilizar los recursos estáticos
+app.use(`/archivos`, express.static("./archivos"));
 
 app.get("/usuarios/:id", infoUsuario);
 app.post("/usuarios", nuevoUsuario);
 app.post("/usuarios/login", login);
 
 app.get("/", listaTemas);
-app.get("/:tema_id", infoTema);
-app.post("/", nuevoTema);
+app.post("/", autorizacionUsuario, esAdmin, nuevoTema);
 
+app.get("/comentario/:comentario_id", autorizacionUsuario, verComentario);
+app.get("/:tema_id/comentario", autorizacionUsuario, listaComentarios);
 app.post("/:tema_id/comentario", autorizacionUsuario, nuevoComentario);
-app.delete("/:tema_id/comentario/:idComentario", borrarComentario);
+app.delete("/comentario/:comentario_id", autorizacionUsuario, borrarComentario);
 
 app.use((req, res) => {
   res.status(404).send({
