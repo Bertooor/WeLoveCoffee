@@ -45,7 +45,7 @@ const nuevoComentario = async (req, res, next) => {
 
     res.send({
       estado: "ok",
-      mensaje: `Nuevo comentario con id: ${id}`,
+      mensaje: `Nuevo comentario con id: ${id}.`,
     });
   } catch (error) {
     next(error);

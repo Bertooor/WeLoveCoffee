@@ -74,7 +74,7 @@ const borrarComentarioBD = async (comentario_id) => {
   try {
     conexion = await crearConexion();
 
-    const [comentario] = await conexion.query(
+    await conexion.query(
       `
       DELETE 
       FROM comentarios

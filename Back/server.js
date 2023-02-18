@@ -13,7 +13,7 @@ const {
   login,
 } = require("./Controladores/usuarios");
 
-const { listaTemas, infoTema, nuevoTema } = require("./Controladores/temas");
+const { listaTemas, nuevoTema } = require("./Controladores/temas");
 
 const {
   nuevoComentario,
@@ -22,7 +22,7 @@ const {
   verComentario,
 } = require("./Controladores/comentarios");
 
-const autorizacionUsuario = require("./Middlewares/autorizacion");
+const { autorizacionUsuario, esAdmin } = require("./Middlewares/autorizacion");
 
 const app = express();
 
@@ -38,8 +38,7 @@ app.post("/usuarios", nuevoUsuario);
 app.post("/usuarios/login", login);
 
 app.get("/", listaTemas);
-app.get("/:tema_id", infoTema);
-app.post("/", nuevoTema);
+app.post("/", autorizacionUsuario, esAdmin, nuevoTema);
 
 app.get("/comentario/:comentario_id", autorizacionUsuario, verComentario);
 app.get("/:tema_id/comentario", autorizacionUsuario, listaComentarios);
