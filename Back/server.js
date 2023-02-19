@@ -13,7 +13,7 @@ const {
   login,
 } = require("./Controladores/usuarios");
 
-const { listaTemas, nuevoTema } = require("./Controladores/temas");
+const { listaTemas, nuevoTema, borrarTema } = require("./Controladores/temas");
 
 const {
   nuevoComentario,
@@ -33,12 +33,13 @@ app.use(fileUpload());
 // Para poder utilizar los recursos estáticos
 app.use(`/archivos`, express.static("./archivos"));
 
-app.get("/usuarios/:id", infoUsuario);
+app.get("/usuarios/:id", autorizacionUsuario, infoUsuario);
 app.post("/usuarios", nuevoUsuario);
 app.post("/usuarios/login", login);
 
 app.get("/", listaTemas);
 app.post("/", autorizacionUsuario, esAdmin, nuevoTema);
+app.delete("/:tema_id", autorizacionUsuario, esAdmin, borrarTema);
 
 app.get("/comentario/:comentario_id", autorizacionUsuario, verComentario);
 app.get("/:tema_id/comentario", autorizacionUsuario, listaComentarios);

@@ -31,7 +31,6 @@ const autorizacionUsuario = (req, res, next) => {
 
 const esAdmin = (req, res, next) => {
   try {
-    console.log("req.autorizacion: ", req.autorizacion);
     if (req.autorizacion !== 1) {
       generaError(
         "Lo siento no tienes permisos para este tipo de acción.",

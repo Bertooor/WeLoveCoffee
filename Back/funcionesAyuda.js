@@ -1,4 +1,5 @@
 const fs = require("fs/promises");
+const path = require("path");
 
 const generaError = (mensaje, estado) => {
   const error = new Error(mensaje);
@@ -14,4 +15,10 @@ const crearRuta = async (ruta) => {
   }
 };
 
-module.exports = { generaError, crearRuta };
+const borrarImagen = async (imagen) => {
+  const rutaImagen = path.join(__dirname, "/archivos", imagen);
+
+  await fs.unlink(rutaImagen);
+};
+
+module.exports = { generaError, crearRuta, borrarImagen };

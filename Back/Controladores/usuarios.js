@@ -31,6 +31,13 @@ const infoUsuario = async (req, res, next) => {
     const { id } = req.params;
 
     const usuario = await infoUsuarioBD(id);
+    console.log("usuario:", usuario, "id: ", req.autorizacion);
+    if (req.autorizacion !== usuario.id && req.autorizacion !== 1) {
+      generaError(
+        "Lo siento no tienes permiso para acceder a esta información.",
+        403
+      );
+    }
 
     res.send({
       estado: "ok",

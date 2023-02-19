@@ -26,14 +26,14 @@ async function main() {
         CREATE TABLE usuarios (
             id INT PRIMARY KEY AUTO_INCREMENT,
             avatar VARCHAR(100) UNIQUE NOT NULL,
+            imagen VARCHAR(150),
             correo VARCHAR(100) UNIQUE NOT NULL,
             contrasena VARCHAR(512) NOT NULL,
             rol ENUM('admin', 'normal') DEFAULT 'normal' NOT NULL,
             fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
             codigoRegistro VARCHAR(100),
             usuarioActivo BOOLEAN DEFAULT false,
-            codigoRecuperacion VARCHAR(100),
-            borrado BOOLEAN DEFAULT false
+            codigoRecuperacion VARCHAR(100)
         )
     `);
 

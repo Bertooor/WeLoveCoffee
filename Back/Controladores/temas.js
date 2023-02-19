@@ -1,9 +1,17 @@
-const { generaError, crearRuta } = require("../funcionesAyuda");
+const { generaError, crearRuta, borrarImagen } = require("../funcionesAyuda");
 const path = require("path");
 const sharp = require("sharp");
 const uuid = require("uuid");
 
-const { nuevoTemaBD, listaTemasBD } = require("../BaseDatos/temasBD");
+const {
+  nuevoTemaBD,
+  listaTemasBD,
+  borrarTemaBD,
+  borrarListaComentariosBD,
+  temaBD,
+} = require("../BaseDatos/temasBD");
+
+const { listaComentariosBD } = require("../BaseDatos/comentariosBD");
 
 const listaTemas = async (req, res, next) => {
   try {
@@ -22,8 +30,8 @@ const nuevoTema = async (req, res, next) => {
   try {
     const { tema } = req.body;
 
-    if (!tema) {
-      generaError("Falta añadir el tema.", 400);
+    if (!req.files?.imagen || !tema) {
+      generaError("Falta añadir el tema o la imagen.", 400);
     }
 
     let nombreArchivo;
@@ -53,4 +61,36 @@ const nuevoTema = async (req, res, next) => {
   }
 };
 
-module.exports = { listaTemas, nuevoTema };
+const borrarTema = async (req, res, next) => {
+  try {
+    const { tema_id } = req.params;
+
+    const [tema] = await temaBD(tema_id);
+
+    const imagenesComentarios = await listaComentariosBD(tema_id);
+    console.log("imagenesComentarios: ", imagenesComentarios.imagen);
+
+    if (imagenesComentarios) {
+      for (const imagen of imagenesComentarios) {
+        await borrarImagen(imagen.imagen);
+      }
+    }
+
+    if (tema[0].imagen) {
+      await borrarImagen(tema[0].imagen);
+    }
+
+    await borrarListaComentariosBD(tema_id);
+
+    await borrarTemaBD(tema_id);
+
+    res.send({
+      estado: "ok",
+      mensaje: `Tema con id: ${tema_id} y todos sus comentarios borrados.`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { listaTemas, nuevoTema, borrarTema };

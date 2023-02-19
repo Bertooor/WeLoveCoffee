@@ -4,7 +4,7 @@ const {
   comentarioBD,
   borrarComentarioBD,
 } = require("../BaseDatos/comentariosBD");
-const { crearRuta, generaError } = require("../funcionesAyuda");
+const { crearRuta, generaError, borrarImagen } = require("../funcionesAyuda");
 const path = require("path");
 const sharp = require("sharp");
 const uuid = require("uuid");
@@ -37,7 +37,7 @@ const nuevoComentario = async (req, res, next) => {
     }
 
     const id = await nuevoComentarioBD(
-      req.autorizacion.id,
+      req.autorizacion,
       tema_id,
       texto,
       nombreArchivo
@@ -58,9 +58,12 @@ const borrarComentario = async (req, res, next) => {
 
     const comentario = await comentarioBD(comentario_id);
 
-    // req.autorizacion.id = información del token
-    if (req.autorizacion.id !== comentario.usuario_id) {
+    if (req.autorizacion !== comentario.usuario_id && req.autorizacion !== 1) {
       generaError("No puedes borrar un comentario de otro usuario.", 401);
+    }
+
+    if (comentario.imagen) {
+      await borrarImagen(comentario.imagen);
     }
 
     await borrarComentarioBD(comentario_id);
