@@ -39,4 +39,71 @@ const listaTemasBD = async () => {
   }
 };
 
-module.exports = { nuevoTemaBD, listaTemasBD };
+const borrarListaComentariosBD = async (tema_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    await conexion.query(
+      `
+      DELETE
+      FROM comentarios
+      WHERE tema_id = ?
+    `,
+      [tema_id]
+    );
+
+    return;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const borrarTemaBD = async (tema_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    await conexion.query(
+      `
+      DELETE
+      FROM temas
+      WHERE id = ?
+    `,
+      [tema_id]
+    );
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const temaBD = async (tema_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const tema = await conexion.query(
+      `
+      SELECT *
+      FROM temas
+      WHERE id = ?
+    `,
+      [tema_id]
+    );
+
+    return tema;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+module.exports = {
+  nuevoTemaBD,
+  listaTemasBD,
+  borrarTemaBD,
+  borrarListaComentariosBD,
+  temaBD,
+};
