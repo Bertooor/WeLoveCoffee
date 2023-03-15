@@ -77,7 +77,7 @@ const loginBD = async (correo, contrasena) => {
 
     const [usuario] = await conexion.query(
       `
-      SELECT id
+      SELECT id, usuarioActivo
       FROM usuarios
       WHERE correo = ? AND contrasena = SHA2(?, 512)
     `,
@@ -271,6 +271,44 @@ const editarUsuarioBD = async (correo, avatar, imagen, id) => {
   }
 };
 
+const borrarUsuarioBD = async (id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    await conexion.query(
+      `
+      DELETE 
+      FROM usuarios
+      WHERE id = ?
+    `,
+      [id]
+    );
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const borrarImagenAvatarBD = async (id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    await conexion.query(
+      `
+      UPDATE usuarios
+      SET imagen = NULL
+      WHERE id = ?
+    `,
+      [id]
+    );
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
 module.exports = {
   nuevoUsuarioBD,
   infoUsuarioBD,
@@ -282,4 +320,6 @@ module.exports = {
   editarUsuarioBD,
   existeCorreoBD,
   existeAvatarBD,
+  borrarUsuarioBD,
+  borrarImagenAvatarBD,
 };

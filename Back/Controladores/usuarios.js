@@ -8,6 +8,7 @@ const {
   enviarCorreo,
   generarCodigo,
   crearRuta,
+  borrarImagen,
 } = require("../funcionesAyuda");
 const {
   nuevoUsuarioBD,
@@ -20,6 +21,8 @@ const {
   editarUsuarioBD,
   existeCorreoBD,
   existeAvatarBD,
+  borrarUsuarioBD,
+  borrarImagenAvatarBD,
 } = require("../BaseDatos/usuariosBD");
 
 const nuevoUsuario = async (req, res, next) => {
@@ -91,6 +94,10 @@ const login = async (req, res, next) => {
     }
 
     const usuario = await loginBD(correo, contrasena);
+
+    if (!usuario.usuarioActivo) {
+      generaError("Usuario pendiente de validación, revise su correo", 401);
+    }
 
     const token = jwt.sign(usuario, process.env.JWT_SECRETO, {
       expiresIn: "1d",
@@ -200,7 +207,7 @@ const editarUsuario = async (req, res, next) => {
       await existeAvatarBD(avatar);
     }
 
-    if (usuario.imagen.length > 0) {
+    if (usuario.imagen?.length > 0) {
       generaError("Lo siento solo puedes tener una imagen como avatar.");
     }
 
@@ -230,6 +237,66 @@ const editarUsuario = async (req, res, next) => {
   }
 };
 
+const borrarUsuario = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const usuario = await infoUsuarioBD(id);
+
+    if (usuario.id === 1) {
+      generaError("El administrador no se puede eliminar.", 403);
+    }
+
+    if (req.autorizacion !== usuario.id && req.autorizacion !== 1) {
+      generaError(
+        "Lo siento no tienes permiso para acceder a esta información.",
+        403
+      );
+    }
+
+    if (usuario.imagen && usuario.imagen.length > 0) {
+      await borrarImagen(usuario.imagen);
+    }
+
+    await borrarUsuarioBD(id);
+
+    res.send({
+      estado: "ok",
+      mensaje: `Usuario con id ${id} eliminado de la base de datos.`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const borrarImagenAvatar = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const usuario = await infoUsuarioBD(id);
+
+    if (req.autorizacion !== usuario.id && req.autorizacion !== 1) {
+      generaError(
+        "Lo siento no tienes permiso para acceder a esta información.",
+        403
+      );
+    }
+
+    if (usuario.imagen && usuario.imagen.length > 0) {
+      await borrarImagen(usuario.imagen);
+    }
+
+    await borrarImagenAvatarBD(id);
+
+    res.send({
+      estado: "ok",
+      mensaje: "Imagen usuario eliminada.",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   nuevoUsuario,
   infoUsuario,
@@ -238,4 +305,6 @@ module.exports = {
   recuperaContrasena,
   nuevaContrasena,
   editarUsuario,
+  borrarUsuario,
+  borrarImagenAvatar,
 };

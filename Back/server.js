@@ -15,6 +15,8 @@ const {
   recuperaContrasena,
   nuevaContrasena,
   editarUsuario,
+  borrarUsuario,
+  borrarImagenAvatar,
 } = require("./Controladores/usuarios");
 
 const { listaTemas, nuevoTema, borrarTema } = require("./Controladores/temas");
@@ -44,6 +46,8 @@ app.post("/usuarios/login", login);
 app.post("/usuarios/recuperaContrasena", recuperaContrasena);
 app.post("/usuarios/nuevaContrasena", nuevaContrasena);
 app.put("/usuarios/:id", autorizacionUsuario, editarUsuario);
+app.delete("/usuarios/imagen/:id", autorizacionUsuario, borrarImagenAvatar);
+app.delete("/usuarios/:id", autorizacionUsuario, borrarUsuario);
 
 app.get("/", listaTemas);
 app.post("/", autorizacionUsuario, esAdmin, nuevoTema);
