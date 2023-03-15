@@ -11,6 +11,10 @@ const {
   nuevoUsuario,
   infoUsuario,
   login,
+  validarUsuario,
+  recuperaContrasena,
+  nuevaContrasena,
+  editarUsuario,
 } = require("./Controladores/usuarios");
 
 const { listaTemas, nuevoTema, borrarTema } = require("./Controladores/temas");
@@ -34,8 +38,12 @@ app.use(fileUpload());
 app.use(`/archivos`, express.static("./archivos"));
 
 app.get("/usuarios/:id", autorizacionUsuario, infoUsuario);
+app.get("/usuarios/validar/:codigoRegistro", validarUsuario);
 app.post("/usuarios", nuevoUsuario);
 app.post("/usuarios/login", login);
+app.post("/usuarios/recuperaContrasena", recuperaContrasena);
+app.post("/usuarios/nuevaContrasena", nuevaContrasena);
+app.put("/usuarios/:id", autorizacionUsuario, editarUsuario);
 
 app.get("/", listaTemas);
 app.post("/", autorizacionUsuario, esAdmin, nuevoTema);
