@@ -5,8 +5,13 @@
 ## Rutas
 
 - GET /usuarios/:id => Información usuario(Admin o mismo usuario).
+- GET /usuarios/validar/:codigoRegistro => Confirmar usuario activado.
 - POST /usuarios => Registro de usuario(El usuario con id: 1, será el administrador).
 - POST /usuarios/login => Login usuario.
+- POST /usuarios/recuperaContrasena => Proporciona un código al usuario a través del correo, con el que puede cambiar la contraseña de acceso.
+- POST /usuarios/nuevaContrasena => Permite cambiar de contraseña a través de un código.
+- PUT /usuarios/:id => Edita usuario.
+- DELETE /usuarios/:id => Borra usuario.
 
 - GET / => Lista todos los temas a tratar.
 - POST / => Permite crear un tema(solo admin).
