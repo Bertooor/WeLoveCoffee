@@ -69,7 +69,7 @@ const borrarComentario = async (req, res, next) => {
     await borrarComentarioBD(comentario_id);
 
     res.send({
-      estado: "error",
+      estado: "ok",
       mensaje: `Comentario con id: ${comentario_id} borrado.`,
     });
   } catch (error) {
