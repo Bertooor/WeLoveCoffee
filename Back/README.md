@@ -27,5 +27,7 @@
 
 - npm i => Para instalar las dependencias necesarias.
 - Tener una base de datos creada con anterioridad para poder crear las tablas.
+- node BaseDatos/iniciarBD.js => Para crear las tablas de la base de datos.
 - El admin también tiene que estar logueado para acceder.
 - Colocar el middleware de autorizacionUsuario antes de esAdmin para mayor seguridad.
+- 'npm run dev' o 'node server.js' => Para arrancar el back.

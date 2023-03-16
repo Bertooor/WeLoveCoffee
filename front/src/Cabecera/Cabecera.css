@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #a38341;
+  color: white;
+}
+
+.header img {
+  height: 75px;
+}
+
+.header h1 {
+  display: none;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+}
+
+section.registro {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (min-width: 750px) {
+  .header h1 {
+    display: block;
+  }
+}
