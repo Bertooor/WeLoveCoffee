@@ -55,7 +55,8 @@ const nuevoUsuario = async (req, res, next) => {
 
     res.send({
       estado: "ok",
-      mensaje: `Nuevo usuario creado con id: ${usuarioId}`,
+      mensaje: `Nuevo usuario creado con id: ${usuarioId}.
+      Comprueba tu correo para validar tus datos.`,
     });
   } catch (error) {
     next(error);
@@ -106,6 +107,7 @@ const login = async (req, res, next) => {
       estado: "ok",
       mensaje: "Usuario logeado.",
       datos: token,
+      usuario,
     });
   } catch (error) {
     next(error);

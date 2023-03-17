@@ -77,7 +77,7 @@ const loginBD = async (correo, contrasena) => {
 
     const [usuario] = await conexion.query(
       `
-      SELECT id, usuarioActivo
+      SELECT id, usuarioActivo, avatar, imagen, rol
       FROM usuarios
       WHERE correo = ? AND contrasena = SHA2(?, 512)
     `,

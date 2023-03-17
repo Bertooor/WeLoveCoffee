@@ -20,9 +20,27 @@
   text-decoration: none;
 }
 
-section.registro {
+section.sinautorizacion {
   display: flex;
   gap: 1rem;
+}
+
+section.conautorizacion,
+section.imagenusuario {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+section.imagenusuario img {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+section.conautorizacion .logout {
+  height: 30px;
 }
 
 @media (min-width: 750px) {

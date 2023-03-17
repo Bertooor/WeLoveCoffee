@@ -1,9 +1,10 @@
 main {
   min-height: 100vh;
   background-color: #fff7e3;
+  padding: 2rem;
 }
 
 main h2 {
   text-align: center;
-  padding: 2rem;
+  padding-bottom: 2rem;
 }
