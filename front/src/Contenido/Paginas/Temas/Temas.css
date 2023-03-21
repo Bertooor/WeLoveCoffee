@@ -1,0 +1,19 @@
+section.temas li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px solid #3d1900;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: #a38341;
+  color: white;
+}
+
+section.temas img {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+}

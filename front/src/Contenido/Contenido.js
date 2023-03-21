@@ -20,7 +20,7 @@ function Contenido() {
         <Route path="/nuevaContrasena" element={<NuevaContrasena />} />
         <Route path="/iniciosesion" element={<InicioSesion />} />
         <Route path="/" element={<Temas />} />
-        <Route path="/usuario/*" element={<Usuario />} />
+        <Route path="/usuario" element={<Usuario />} />
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </main>
