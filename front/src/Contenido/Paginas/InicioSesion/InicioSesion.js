@@ -27,6 +27,7 @@ function InicioSesion() {
     );
 
     const datos = await respuesta.json();
+    console.log("datos:", datos);
 
     if (datos.estado === "error") {
       setEstado("error");

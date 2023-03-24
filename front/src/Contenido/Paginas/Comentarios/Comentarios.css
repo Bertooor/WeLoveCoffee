@@ -1,0 +1,8 @@
+section.comentarios li {
+  list-style: none;
+  margin: 2rem 0;
+}
+
+section.comentarios img {
+  max-width: 80vw;
+}

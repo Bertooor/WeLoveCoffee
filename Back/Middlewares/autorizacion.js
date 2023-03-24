@@ -4,10 +4,11 @@ const { generaError } = require("../funcionesAyuda");
 const autorizacionUsuario = (req, res, next) => {
   try {
     const { authorization } = req.headers;
+    console.log("req.headers", req.headers);
 
     if (!authorization) {
       generaError(
-        "Lo siento no tienes permisos para este tipo de acción. Inicia sesión.",
+        "Falta la autorización. Debes registrarte e iniciar sesión.",
         401
       );
     }
@@ -19,7 +20,7 @@ const autorizacionUsuario = (req, res, next) => {
     } catch {
       generaError("Autorización incorrecta o caducada.", 401);
     }
-
+    console.log("token", token);
     // Creo propiedad con los datos del token
     req.autorizacion = token.id;
 
