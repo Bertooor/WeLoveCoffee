@@ -32,7 +32,7 @@ const listaComentariosBD = async (tema_id) => {
       SELECT *
       FROM comentarios
       WHERE tema_id = ?
-      ORDER BY fecha_creacion DESC
+      ORDER BY fecha_creacion ASC
     `,
       [tema_id]
     );

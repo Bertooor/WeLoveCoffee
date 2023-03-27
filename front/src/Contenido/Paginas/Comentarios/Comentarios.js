@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUsuario } from "../../../UsuarioContext";
 import "./Comentarios.css";
+import NuevoComentario from "./NuevoComentario";
 
 function Comentarios() {
   const { id } = useParams();
@@ -12,13 +13,16 @@ function Comentarios() {
 
   const [comentarios, setComentarios] = useState();
 
+  const [llave, setLlave] = useState(0);
+  const recarga = () => setLlave((k) => k + 1);
+
   useEffect(() => {
     (async () => {
       const respuesta = await fetch(
         `${process.env.REACT_APP_API}/${id}/comentario`,
         {
           headers: {
-            Authorization: usuario.datos,
+            Authorization: usuario?.datos,
           },
         }
       );
@@ -27,7 +31,7 @@ function Comentarios() {
       setComentarios(datos);
       console.log("k", datos);
     })();
-  }, [id, usuario.datos]);
+  }, [id, usuario?.datos, llave]);
 
   return (
     <section className="comentarios">
@@ -46,6 +50,7 @@ function Comentarios() {
             </li>
           ))}
       </ul>
+      <NuevoComentario recarga={recarga} />
     </section>
   );
 }

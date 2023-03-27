@@ -3,6 +3,7 @@ section.comentarios li {
   margin: 2rem 0;
 }
 
-section.comentarios img {
+section.comentarios img,
+section.comentarios form textarea {
   max-width: 80vw;
 }
