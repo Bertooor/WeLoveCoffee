@@ -1,5 +1,5 @@
 const { crearConexion } = require("./conexionBD");
-const { generaError, generarCodigo } = require("../funcionesAyuda");
+const { generaError } = require("../funcionesAyuda");
 
 const nuevoUsuarioBD = async (avatar, correo, contrasena, codigoRegistro) => {
   let conexion;
@@ -276,6 +276,15 @@ const borrarUsuarioBD = async (id) => {
 
   try {
     conexion = await crearConexion();
+
+    await conexion.query(
+      `
+      DELETE
+      FROM comentarios
+      WHERE usuario_id = ?
+    `,
+      [id]
+    );
 
     await conexion.query(
       `

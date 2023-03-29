@@ -68,6 +68,27 @@ const comentarioBD = async (comentario_id) => {
   }
 };
 
+const imagenesUsuarioBD = async (id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [imagenes] = await conexion.query(
+      `
+      SELECT imagen
+      FROM comentarios
+      WHERE id = ?
+    `,
+      [id]
+    );
+
+    return imagenes;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
 const borrarComentarioBD = async (comentario_id) => {
   let conexion;
 
@@ -94,4 +115,5 @@ module.exports = {
   listaComentariosBD,
   comentarioBD,
   borrarComentarioBD,
+  imagenesUsuarioBD,
 };

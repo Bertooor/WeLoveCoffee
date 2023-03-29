@@ -11,7 +11,6 @@
 - POST /usuarios/recuperaContrasena => Proporciona un código al usuario a través del correo, con el que puede cambiar la contraseña de acceso.
 - POST /usuarios/nuevaContrasena => Permite cambiar de contraseña a través de un código.
 - PUT /usuarios/:id => Edita usuario(Admin o mismo usuario).
-- DELETE /usuarios/imagen/:id => Borra imagen avatar(Admin o mismo usuario).
 - DELETE /usuarios/:id => Borra usuario(Admin o mismo usuario).
 
 - GET / => Lista todos los temas a tratar.

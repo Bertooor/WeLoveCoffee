@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import { useUsuario } from "../../../UsuarioContext";
 
-function NuevoComentario({ recarga }) {
+function NuevoTema() {
   const usuario = useUsuario();
 
-  const { id } = useParams();
-
-  const [texto, setTexto] = useState("");
+  const [tema, setTema] = useState("");
   const [imagen, setImagen] = useState();
 
   const [estado, setEstado] = useState("");
@@ -18,22 +15,18 @@ function NuevoComentario({ recarga }) {
 
     const formData = new FormData();
 
-    formData.append("texto", texto);
+    formData.append("tema", tema);
     formData.append("imagen", imagen);
 
-    const respuesta = await fetch(
-      `${process.env.REACT_APP_API}/${id}/comentario`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: usuario?.datos,
-        },
-        body: formData,
-      }
-    );
+    const respuesta = await fetch(`${process.env.REACT_APP_API}/`, {
+      method: "POST",
+      headers: {
+        Authorization: usuario?.datos,
+      },
+      body: formData,
+    });
 
     const datos = await respuesta.json();
-    console.log("datosNC:", datos);
 
     if (datos.estado === "error") {
       setEstado("error");
@@ -41,24 +34,20 @@ function NuevoComentario({ recarga }) {
     } else {
       setEstado("ok");
       setMensaje(datos.mensaje);
-      setTexto("");
+      setTema("");
       setImagen();
-      recarga();
     }
   };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form">
+      <h3>Nuevo tema:</h3>
       <label>
-        <span>Comentario:</span>
-        <textarea
-          rows="5"
-          cols="100"
-          maxLength="500"
-          required
-          name="texto"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
+        <span>Tema:</span>
+        <input
+          name="tema"
+          type="text"
+          value={tema}
+          onChange={(e) => setTema(e.target.value)}
         />
       </label>
       <label>
@@ -70,9 +59,10 @@ function NuevoComentario({ recarga }) {
         />
       </label>
       <button>Enviar</button>
-      {estado === "error" && <p className="api">{mensaje}</p>}
+      {estado === "error" && <p>{mensaje}</p>}
+      {estado === "ok" && <p>{mensaje}</p>}
     </form>
   );
 }
 
-export default NuevoComentario;
+export default NuevoTema;

@@ -24,6 +24,7 @@ const {
   borrarUsuarioBD,
   borrarImagenAvatarBD,
 } = require("../BaseDatos/usuariosBD");
+const { imagenesUsuarioBD } = require("../BaseDatos/comentariosBD");
 
 const nuevoUsuario = async (req, res, next) => {
   try {
@@ -210,7 +211,8 @@ const editarUsuario = async (req, res, next) => {
     }
 
     if (usuario.imagen?.length > 0) {
-      generaError("Lo siento solo puedes tener una imagen como avatar.");
+      await borrarImagen(usuario.imagen);
+      await borrarImagenAvatarBD(id);
     }
 
     let nombreArchivo;
@@ -232,7 +234,8 @@ const editarUsuario = async (req, res, next) => {
 
     res.send({
       estado: "ok",
-      mensaje: "Datos de usuario actualizados.",
+      mensaje:
+        "Datos de usuario actualizados. Vuelve a iniciar sesión para poder ver los cambios.",
     });
   } catch (error) {
     next(error);
@@ -260,39 +263,17 @@ const borrarUsuario = async (req, res, next) => {
       await borrarImagen(usuario.imagen);
     }
 
+    const imagenes = await imagenesUsuarioBD(id);
+
+    for (const item of imagenes) {
+      await borrarImagen(item.imagen);
+    }
+
     await borrarUsuarioBD(id);
 
     res.send({
       estado: "ok",
       mensaje: `Usuario con id ${id} eliminado de la base de datos.`,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const borrarImagenAvatar = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const usuario = await infoUsuarioBD(id);
-
-    if (req.autorizacion !== usuario.id && req.autorizacion !== 1) {
-      generaError(
-        "Lo siento no tienes permiso para acceder a esta información.",
-        403
-      );
-    }
-
-    if (usuario.imagen && usuario.imagen.length > 0) {
-      await borrarImagen(usuario.imagen);
-    }
-
-    await borrarImagenAvatarBD(id);
-
-    res.send({
-      estado: "ok",
-      mensaje: "Imagen usuario eliminada.",
     });
   } catch (error) {
     next(error);
@@ -308,5 +289,4 @@ module.exports = {
   nuevaContrasena,
   editarUsuario,
   borrarUsuario,
-  borrarImagenAvatar,
 };

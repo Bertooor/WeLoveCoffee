@@ -3,6 +3,7 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import "./Temas.css";
 import Comentarios from "../Comentarios/Comentarios";
 import { useUsuario } from "../../../UsuarioContext";
+import BorrarTema from "../Admin/BorrarTema";
 
 function Temas() {
   const [temas, setTemas] = useState();
@@ -26,6 +27,7 @@ function Temas() {
             {temas &&
               temas.datos?.map((tema) => (
                 <NavLink to={`/${tema.id}`} key={tema.id}>
+                  {usuario?.usuario.id === 1 && <BorrarTema tema={tema.id} />}
                   <li>
                     <img
                       src={`${process.env.REACT_APP_API}/archivos/${tema.imagen}`}

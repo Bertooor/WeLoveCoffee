@@ -39,27 +39,6 @@ const listaTemasBD = async () => {
   }
 };
 
-const borrarListaComentariosBD = async (tema_id) => {
-  let conexion;
-
-  try {
-    conexion = await crearConexion();
-
-    await conexion.query(
-      `
-      DELETE
-      FROM comentarios
-      WHERE tema_id = ?
-    `,
-      [tema_id]
-    );
-
-    return;
-  } finally {
-    if (conexion) conexion.release();
-  }
-};
-
 const borrarTemaBD = async (tema_id) => {
   let conexion;
 
@@ -104,6 +83,5 @@ module.exports = {
   nuevoTemaBD,
   listaTemasBD,
   borrarTemaBD,
-  borrarListaComentariosBD,
   temaBD,
 };

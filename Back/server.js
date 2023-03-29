@@ -16,7 +16,6 @@ const {
   nuevaContrasena,
   editarUsuario,
   borrarUsuario,
-  borrarImagenAvatar,
 } = require("./Controladores/usuarios");
 
 const { listaTemas, nuevoTema, borrarTema } = require("./Controladores/temas");
@@ -46,7 +45,6 @@ app.post("/usuarios/login", login);
 app.post("/usuarios/recuperaContrasena", recuperaContrasena);
 app.post("/usuarios/nuevaContrasena", nuevaContrasena);
 app.put("/usuarios/:id", autorizacionUsuario, editarUsuario);
-app.delete("/usuarios/imagen/:id", autorizacionUsuario, borrarImagenAvatar);
 app.delete("/usuarios/:id", autorizacionUsuario, borrarUsuario);
 
 app.get("/", listaTemas);
@@ -61,7 +59,7 @@ app.delete("/comentario/:comentario_id", autorizacionUsuario, borrarComentario);
 app.use((req, res) => {
   res.status(404).send({
     estado: "error",
-    mensage: "Elemento no encontrado.",
+    mensaje: "Elemento no encontrado.",
   });
 });
 
@@ -70,7 +68,7 @@ app.use((error, req, res, next) => {
 
   res.status(error.httpStatus || 500).send({
     estado: "error",
-    mensage: error.message,
+    mensaje: error.message,
   });
 });
 

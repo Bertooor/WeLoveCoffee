@@ -7,11 +7,8 @@ const {
   nuevoTemaBD,
   listaTemasBD,
   borrarTemaBD,
-  borrarListaComentariosBD,
   temaBD,
 } = require("../BaseDatos/temasBD");
-
-const { listaComentariosBD } = require("../BaseDatos/comentariosBD");
 
 const listaTemas = async (req, res, next) => {
   try {
@@ -66,27 +63,17 @@ const borrarTema = async (req, res, next) => {
     const { tema_id } = req.params;
 
     const [tema] = await temaBD(tema_id);
+    console.log("tema: ", tema[0].imagen);
 
-    const imagenesComentarios = await listaComentariosBD(tema_id);
-    console.log("imagenesComentarios: ", imagenesComentarios.imagen);
-
-    if (imagenesComentarios) {
-      for (const imagen of imagenesComentarios) {
-        await borrarImagen(imagen.imagen);
-      }
-    }
-
-    if (tema[0].imagen) {
+    if (tema[0].imagen && tema[0].imagen.length > 0) {
       await borrarImagen(tema[0].imagen);
     }
-
-    await borrarListaComentariosBD(tema_id);
 
     await borrarTemaBD(tema_id);
 
     res.send({
       estado: "ok",
-      mensaje: `Tema con id: ${tema_id} y todos sus comentarios borrados.`,
+      mensaje: `Tema con id: ${tema_id} borrado.`,
     });
   } catch (error) {
     next(error);

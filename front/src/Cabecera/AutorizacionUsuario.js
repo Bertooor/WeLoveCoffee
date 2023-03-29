@@ -13,7 +13,7 @@ function AutorizacionUsuario() {
           <Link to="/admin">Admin</Link>
         ) : null}
         <section className="imagenusuario">
-          {usuario.usuario.imagen === null ? (
+          {!usuario.usuario.imagen ? (
             <img
               src="/avatar-removebg-preview.png"
               alt="imagen avatar por defecto"
