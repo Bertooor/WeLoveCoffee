@@ -18,7 +18,10 @@ const autorizacionUsuario = (req, res, next) => {
     try {
       token = jwt.verify(authorization, process.env.JWT_SECRETO);
     } catch {
-      generaError("Autorización incorrecta o caducada.", 401);
+      generaError(
+        "Autorización incorrecta o caducada. Vuelve a loguearte.",
+        401
+      );
     }
     console.log("token", token);
     // Creo propiedad con los datos del token

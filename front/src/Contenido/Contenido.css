@@ -1,7 +1,8 @@
 main {
-  min-height: 100vh;
+  min-height: calc(100vh - 110px);
   background-color: #fff7e3;
   padding: 2rem;
+  margin-top: 110px;
 }
 
 main h2 {

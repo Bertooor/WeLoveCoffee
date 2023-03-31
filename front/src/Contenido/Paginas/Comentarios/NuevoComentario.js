@@ -50,9 +50,8 @@ function NuevoComentario({ recarga }) {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        <span>Comentario:</span>
         <textarea
-          rows="5"
+          rows="3"
           cols="100"
           maxLength="500"
           required
@@ -62,14 +61,19 @@ function NuevoComentario({ recarga }) {
         />
       </label>
       <label>
-        <span>Imagen:</span>
+        <span className="botonImagen">
+          <i className="fa-solid fa-camera"></i>
+        </span>
         <input
+          className="imagenPrevia"
           type="file"
           name="imagen"
           onChange={(e) => setImagen(e.target.files[0])}
         />
       </label>
-      <button>Enviar</button>
+      <button>
+        <i className="fa-solid fa-paper-plane"></i>
+      </button>
       {estado === "error" && <p className="api">{mensaje}</p>}
     </form>
   );

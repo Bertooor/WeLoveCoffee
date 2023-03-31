@@ -3,7 +3,35 @@ section.comentarios li {
   margin: 2rem 0;
 }
 
-section.comentarios img,
-section.comentarios form textarea {
+section.comentarios img {
   max-width: 80vw;
+}
+
+section.comentarios form {
+  position: fixed;
+  bottom: 0;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  background-color: white;
+}
+
+section.comentarios form textarea {
+  max-width: 50vw;
+}
+
+section.comentarios form button {
+  font-size: 1.6rem;
+  border: none;
+  background-color: #fff7e3;
+}
+
+section.comentarios form .imagenPrevia {
+  display: none;
+}
+
+section.comentarios form .botonImagen {
+  font-size: 2rem;
 }

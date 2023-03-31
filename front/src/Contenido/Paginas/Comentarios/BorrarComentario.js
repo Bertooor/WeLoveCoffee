@@ -31,7 +31,9 @@ function BorrarComentario({ comentario_id, recarga }) {
   };
   return (
     <>
-      <button onClick={handleDelete}>Borrar comentario</button>
+      <button onClick={handleDelete}>
+        <i className="fa-solid fa-trash-can"></i>
+      </button>
       {estado === "error" && <p>{mensaje}</p>}
     </>
   );

@@ -1,3 +1,22 @@
+section.temas ul {
+  position: fixed;
+  width: 100vw;
+}
+
+section.temas ul.nomostrar {
+  left: -100%;
+  transition: 0.5s;
+  min-height: 100vh;
+}
+
+section.temas ul.mostrar {
+  left: 0;
+  transition: 0.5s;
+  background-color: #fff7e3;
+  min-height: 100vh;
+  z-index: 1;
+}
+
 section.temas li {
   list-style: none;
   display: flex;
@@ -20,4 +39,21 @@ section.temas img {
 
 section.temas a {
   text-decoration: none;
+  color: #3d1900;
+  display: block;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+section.temas .checkbutton {
+  float: right;
+  font-size: 2rem;
+  cursor: pointer;
+  position: fixed;
+  top: 135px;
+  right: 2rem;
+}
+
+section.temas #check {
+  display: none;
 }

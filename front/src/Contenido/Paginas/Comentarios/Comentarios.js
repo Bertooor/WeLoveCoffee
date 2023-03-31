@@ -5,10 +5,8 @@ import BorrarComentario from "./BorrarComentario";
 import "./Comentarios.css";
 import NuevoComentario from "./NuevoComentario";
 
-function Comentarios() {
+function Comentarios({ temas }) {
   const { id } = useParams();
-
-  console.log("tema_id: ", id);
 
   const usuario = useUsuario();
 
@@ -16,6 +14,10 @@ function Comentarios() {
 
   const [llave, setLlave] = useState(0);
   const recarga = () => setLlave((k) => k + 1);
+
+  const tema = temas?.datos.filter((elemento) => {
+    return elemento.id === +id;
+  })[0].tema;
 
   useEffect(() => {
     (async () => {
@@ -28,15 +30,16 @@ function Comentarios() {
         }
       );
       const datos = await respuesta.json();
+      console.log("datos: ", datos);
 
       setComentarios(datos);
-      console.log("k", datos);
     })();
   }, [id, usuario?.datos, llave]);
 
   if (usuario) {
     return (
       <section className="comentarios">
+        <h3>{tema}</h3>
         <ul>
           {comentarios &&
             comentarios.datos?.map((comentario) => (

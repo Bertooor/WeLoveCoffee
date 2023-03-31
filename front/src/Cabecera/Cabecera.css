@@ -5,6 +5,10 @@
   padding: 1rem 2rem;
   background-color: #a38341;
   color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
 }
 
 .header img {

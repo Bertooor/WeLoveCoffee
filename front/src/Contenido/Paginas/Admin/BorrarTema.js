@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUsuario } from "../../../UsuarioContext";
 
-function BorrarTema({ tema }) {
+function BorrarTema({ tema, recarga }) {
   const usuario = useUsuario();
 
   const [estado, setEstado] = useState("");
@@ -24,11 +24,14 @@ function BorrarTema({ tema }) {
     } else {
       setEstado("ok");
       setMensaje(datos.mensaje);
+      recarga();
     }
   };
   return (
     <>
-      <button onClick={handleDelete}>Borrar tema</button>
+      <button onClick={handleDelete}>
+        <i className="fa-solid fa-trash-can"></i>
+      </button>
       {estado === "error" && <p>{mensaje}</p>}
     </>
   );
