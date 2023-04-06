@@ -26,8 +26,8 @@ function ValidarUsuario() {
 
   return (
     <section>
-      {estado === "error" && <p>{mensaje}</p>}
-      {estado === "ok" && <p>{mensaje}</p>}
+      {estado === "error" && <h2 className="error">{mensaje}</h2>}
+      {estado === "ok" && <h2>{mensaje}</h2>}
     </section>
   );
 }

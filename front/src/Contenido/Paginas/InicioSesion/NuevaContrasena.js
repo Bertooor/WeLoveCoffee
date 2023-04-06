@@ -39,7 +39,7 @@ function NuevaContrasena() {
     e.preventDefault();
 
     const respuesta = await fetch(
-      `${process.env.REACT_APP_API}/usuario/nuevaContrasena`,
+      `${process.env.REACT_APP_API}/usuarios/nuevaContrasena`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ function NuevaContrasena() {
           />
         </label>
         <button>Enviar correo</button>
-        {estado === "error" && <p>{mensaje}</p>}
+        {estado === "error" && <p className="error">{mensaje}</p>}
         {estado === "ok" && <p>{mensaje}</p>}
       </form>
       <form onSubmit={handleSubmit2} className="form">
@@ -101,7 +101,7 @@ function NuevaContrasena() {
           />
         </label>
         <button>Enviar contraseña</button>
-        {estado2 === "error" && <p>{mensaje2}</p>}
+        {estado2 === "error" && <p className="error">{mensaje2}</p>}
         {estado2 === "ok" && <p>{mensaje2}</p>}
 
         <p>Si has completado ambos pasos...</p>

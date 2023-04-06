@@ -12,9 +12,10 @@ section.temas ul.nomostrar {
 section.temas ul.mostrar {
   left: 0;
   transition: 0.5s;
-  background-color: #fff7e3;
+  background-color: #a38341;
   min-height: 100vh;
   z-index: 1;
+  padding: 2rem;
 }
 
 section.temas li {
@@ -22,15 +23,12 @@ section.temas li {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border: 2px solid #3d1900;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  padding: 1rem;
-  background-color: #a38341;
-  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 0;
 }
 
 section.temas img {
+  display: none;
   height: 50px;
   width: 50px;
   border-radius: 100%;
@@ -38,11 +36,9 @@ section.temas img {
 }
 
 section.temas a {
+  color: white;
   text-decoration: none;
-  color: #3d1900;
   display: block;
-  width: 80vw;
-  margin: 0 auto;
 }
 
 section.temas .checkbutton {
@@ -56,4 +52,11 @@ section.temas .checkbutton {
 
 section.temas #check {
   display: none;
+}
+
+section.temas button {
+  color: white;
+  border: none;
+  background-color: #a38341;
+  font-size: 1rem;
 }

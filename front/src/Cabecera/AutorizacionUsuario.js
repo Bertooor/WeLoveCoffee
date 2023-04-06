@@ -4,7 +4,6 @@ import { useUsuario, useSetUsuario } from "../UsuarioContext";
 function AutorizacionUsuario() {
   const usuario = useUsuario();
   const setUsuario = useSetUsuario();
-  console.log("usuario:", usuario);
 
   if (usuario) {
     return (

@@ -59,7 +59,7 @@ function NuevoTema() {
         />
       </label>
       <button>Enviar</button>
-      {estado === "error" && <p>{mensaje}</p>}
+      {estado === "error" && <p className="error">{mensaje}</p>}
       {estado === "ok" && <p>{mensaje}</p>}
     </form>
   );

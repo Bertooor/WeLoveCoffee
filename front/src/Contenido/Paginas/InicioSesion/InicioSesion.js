@@ -27,15 +27,13 @@ function InicioSesion() {
     );
 
     const datos = await respuesta.json();
-    console.log("datos:", datos);
 
     if (datos.estado === "error") {
       setEstado("error");
       setMensaje(datos.mensaje);
     } else {
-      setUsuario(datos);
       setEstado("ok");
-      setMensaje(datos.mensaje);
+      setUsuario(datos);
     }
   };
 
@@ -66,7 +64,7 @@ function InicioSesion() {
           />
         </label>
         <button>Iniciar sesión</button>
-        {estado === "error" && <p>{mensaje}</p>}
+        {estado === "error" && <p className="error">{mensaje}</p>}
         <p>¿No recuerdas tu contraseña?</p>
         <p>
           <Link to="/nuevaContrasena">Nueva contraseña</Link>

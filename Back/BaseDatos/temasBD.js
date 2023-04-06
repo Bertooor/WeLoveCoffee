@@ -29,7 +29,7 @@ const listaTemasBD = async () => {
     const [listaTemas] = await conexion.query(`
             SELECT *
             FROM temas
-            ORDER BY fecha_creacion DESC
+            ORDER BY fecha_creacion ASC
             
         `);
 

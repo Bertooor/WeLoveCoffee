@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUsuario } from "../../../UsuarioContext";
 
-function NuevoComentario({ recarga }) {
+function NuevoComentario({ recarga, funcion }) {
   const usuario = useUsuario();
 
   const { id } = useParams();
@@ -33,14 +33,12 @@ function NuevoComentario({ recarga }) {
     );
 
     const datos = await respuesta.json();
-    console.log("datosNC:", datos);
 
     if (datos.estado === "error") {
       setEstado("error");
       setMensaje(datos.mensaje);
     } else {
       setEstado("ok");
-      setMensaje(datos.mensaje);
       setTexto("");
       setImagen();
       recarga();
@@ -71,10 +69,10 @@ function NuevoComentario({ recarga }) {
           onChange={(e) => setImagen(e.target.files[0])}
         />
       </label>
-      <button>
+      <button onClick={funcion}>
         <i className="fa-solid fa-paper-plane"></i>
       </button>
-      {estado === "error" && <p className="api">{mensaje}</p>}
+      {estado === "error" && <p className="error">{mensaje}</p>}
     </form>
   );
 }

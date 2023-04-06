@@ -6,8 +6,11 @@ import { useUsuario } from "../../../UsuarioContext";
 import BorrarTema from "../Admin/BorrarTema";
 
 function Temas() {
-  const [temas, setTemas] = useState();
   const usuario = useUsuario();
+  const [temas, setTemas] = useState();
+
+  const [estado, setEstado] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   const [llave, setLlave] = useState(0);
   const recarga = () => setLlave((k) => k + 1);
@@ -19,7 +22,13 @@ function Temas() {
       const respuesta = await fetch(`${process.env.REACT_APP_API}`);
       const datos = await respuesta.json();
 
-      setTemas(datos);
+      if (datos.estado === "error") {
+        setEstado("error");
+        setMensaje(datos.mensaje);
+      } else {
+        setEstado("ok");
+        setTemas(datos);
+      }
     })();
   }, [usuario, llave]);
 
@@ -39,27 +48,27 @@ function Temas() {
           <ul className={mostrarTema ? "mostrar" : "nomostrar"}>
             {temas &&
               temas.datos?.map((tema) => (
-                <NavLink
-                  to={`/${tema.id}`}
-                  key={tema.id}
-                  onClick={() => {
-                    setMostrarTema(false);
-                  }}
-                >
+                <li key={tema.id}>
                   {usuario?.usuario.id === 1 && (
                     <BorrarTema tema={tema.id} recarga={recarga} />
                   )}
-                  <li>
+                  <NavLink
+                    to={`/${tema.id}`}
+                    onClick={() => {
+                      setMostrarTema(false);
+                    }}
+                  >
                     <img
                       src={`${process.env.REACT_APP_API}/archivos/${tema.imagen}`}
                       alt="imagen usuario"
                     />
                     <h3>{tema.tema}</h3>
-                  </li>
-                </NavLink>
+                  </NavLink>
+                </li>
               ))}
           </ul>
         </nav>
+        {estado === "error" && <p className="error">{mensaje}</p>}
       </section>
       <Routes>
         <Route path="/:id" element={<Comentarios temas={temas} />} />

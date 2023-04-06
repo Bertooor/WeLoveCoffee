@@ -25,7 +25,6 @@ function BorrarComentario({ comentario_id, recarga }) {
       setMensaje(datos.mensaje);
     } else {
       setEstado("ok");
-      setMensaje(datos.mensaje);
       recarga();
     }
   };
@@ -34,7 +33,7 @@ function BorrarComentario({ comentario_id, recarga }) {
       <button onClick={handleDelete}>
         <i className="fa-solid fa-trash-can"></i>
       </button>
-      {estado === "error" && <p>{mensaje}</p>}
+      {estado === "error" && <p className="error">{mensaje}</p>}
     </>
   );
 }

@@ -16,14 +16,12 @@ function BorrarTema({ tema, recarga }) {
     });
 
     const datos = await respuesta.json();
-    console.log("datos: ", datos);
 
     if (datos.estado === "error") {
       setEstado("error");
       setMensaje(datos.mensaje);
     } else {
       setEstado("ok");
-      setMensaje(datos.mensaje);
       recarga();
     }
   };
@@ -32,7 +30,7 @@ function BorrarTema({ tema, recarga }) {
       <button onClick={handleDelete}>
         <i className="fa-solid fa-trash-can"></i>
       </button>
-      {estado === "error" && <p>{mensaje}</p>}
+      {estado === "error" && <p className="error">{mensaje}</p>}
     </>
   );
 }
