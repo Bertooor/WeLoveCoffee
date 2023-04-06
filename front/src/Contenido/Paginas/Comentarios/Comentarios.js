@@ -73,7 +73,6 @@ function Comentarios({ temas }) {
                     recarga={recarga}
                   />
                 ) : null}
-                <hr />
               </li>
             ))}
         </ul>

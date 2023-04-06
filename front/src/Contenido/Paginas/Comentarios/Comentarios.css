@@ -5,25 +5,38 @@ section.comentarios ul {
 section.comentarios li {
   list-style: none;
   margin: 2rem 0;
+  /* background-color: white; */
+  padding: 1rem;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+section.comentarios ul li button {
+  border: none;
+  background-color: #fff7e3;
+  margin-left: 90%;
 }
 
 section.comentarios img {
-  max-width: 80vw;
+  max-width: 75vw;
+  border-radius: 25px;
 }
 
 section.comentarios form {
   position: fixed;
   bottom: 0;
-  width: 80vw;
+  width: 85vw;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   gap: 10px;
-  background-color: white;
+  background-color: #fff7e3;
 }
 
 section.comentarios form textarea {
-  max-width: 50vw;
+  max-width: 40vw;
+  border: none;
+  background-color: #fff7e3;
 }
 
 section.comentarios form button {
@@ -38,4 +51,8 @@ section.comentarios form .imagenPrevia {
 
 section.comentarios form .botonImagen {
   font-size: 2rem;
+}
+
+section.comentarios .preview {
+  height: 50px;
 }

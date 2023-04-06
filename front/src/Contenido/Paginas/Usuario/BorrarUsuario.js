@@ -26,14 +26,13 @@ function BorrarUsuario() {
       setMensaje(datos.mensaje);
     } else {
       setEstado("ok");
-      setMensaje(datos.mensaje);
       setUsuario(null);
     }
   };
   return (
     <>
       <button onClick={handleDelete}>Borrar usuario</button>
-      {estado === "error" && <p>{mensaje}</p>}
+      {estado === "error" && <p className="error">{mensaje}</p>}
     </>
   );
 }

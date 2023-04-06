@@ -9,6 +9,7 @@ function NuevoComentario({ recarga, funcion }) {
 
   const [texto, setTexto] = useState("");
   const [imagen, setImagen] = useState();
+  const [previsualizarImagen, setPrevisualizarImagen] = useState();
 
   const [estado, setEstado] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -42,38 +43,52 @@ function NuevoComentario({ recarga, funcion }) {
       setTexto("");
       setImagen();
       recarga();
+      setPrevisualizarImagen();
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <textarea
-          rows="3"
-          cols="100"
-          maxLength="500"
-          required
-          name="texto"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-        />
-      </label>
-      <label>
-        <span className="botonImagen">
-          <i className="fa-solid fa-camera"></i>
-        </span>
-        <input
-          className="imagenPrevia"
-          type="file"
-          name="imagen"
-          onChange={(e) => setImagen(e.target.files[0])}
-        />
-      </label>
-      <button onClick={funcion}>
-        <i className="fa-solid fa-paper-plane"></i>
-      </button>
-      {estado === "error" && <p className="error">{mensaje}</p>}
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <textarea
+            rows="1"
+            cols="100"
+            maxLength="500"
+            required
+            name="texto"
+            value={texto}
+            onChange={(e) => setTexto(e.target.value)}
+            placeholder="Escribe aquí..."
+          />
+        </label>
+        {previsualizarImagen && (
+          <img
+            src={URL.createObjectURL(previsualizarImagen)}
+            alt="imagen"
+            className="preview"
+          />
+        )}
+        <label>
+          <span className="botonImagen">
+            <i className="fa-solid fa-camera"></i>
+          </span>
+          <input
+            className="imagenPrevia"
+            type="file"
+            name="imagen"
+            onChange={(e) => {
+              setImagen(e.target.files[0]);
+              setPrevisualizarImagen(e.target.files[0]);
+            }}
+          />
+        </label>
+        <button onClick={funcion}>
+          <i className="fa-solid fa-paper-plane"></i>
+        </button>
+        {estado === "error" && <p className="error">{mensaje}</p>}
+      </form>
+    </>
   );
 }
 

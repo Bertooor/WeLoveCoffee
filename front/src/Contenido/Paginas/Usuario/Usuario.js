@@ -13,6 +13,9 @@ function Usuario() {
   const [estado, setEstado] = useState("");
   const [mensaje, setMensaje] = useState("");
 
+  const [estado2, setEstado2] = useState("");
+  const [mensaje2, setMensaje2] = useState("");
+
   useEffect(() => {
     (async () => {
       const respuesta = await fetch(
@@ -28,9 +31,15 @@ function Usuario() {
 
       const datos = await respuesta.json();
 
-      setAvatar(datos.datos.avatar);
-      setCorreo(datos.datos.correo);
-      setImagen(datos.datos.imagen);
+      if (datos.estado === "error") {
+        setEstado2("error");
+        setMensaje2(datos.mensaje);
+      } else {
+        setEstado2("ok");
+        setAvatar(datos.datos.avatar);
+        setCorreo(datos.datos.correo);
+        setImagen(datos.datos.imagen);
+      }
     })();
   }, [usuario?.usuario.id, usuario?.datos]);
 
@@ -54,7 +63,6 @@ function Usuario() {
     );
 
     const datos = await respuesta.json();
-    console.log("datoseditados: ", datos);
 
     if (datos.estado === "error") {
       setEstado("error");
@@ -76,6 +84,7 @@ function Usuario() {
     return (
       <section>
         <h2>Perfil usuario</h2>
+        {estado2 === "error" && <p className="error">{mensaje2}</p>}
         <form onSubmit={handleSubmit} className="form">
           <label>
             <span>Avatar:</span>
@@ -103,7 +112,7 @@ function Usuario() {
             <img src={previsualizarImagen} alt="imagen avatar" />
           )}
           <button>Modificar</button>
-          {estado === "error" && <p>{mensaje}</p>}
+          {estado === "error" && <p className="error">{mensaje}</p>}
           {estado === "ok" && <p>{mensaje}</p>}
         </form>
         <BorrarUsuario />
@@ -112,7 +121,9 @@ function Usuario() {
   } else {
     return (
       <section>
-        <h2>No tienes acceso a esta sección, debes estar logueado.</h2>
+        <h2 className="error">
+          No tienes acceso a esta sección, debes estar logueado.
+        </h2>
       </section>
     );
   }
