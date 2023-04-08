@@ -29,8 +29,9 @@ const listaComentariosBD = async (tema_id) => {
 
     const [listaComentarios] = await conexion.query(
       `
-      SELECT *
+      SELECT comentarios.*, usuarios.avatar
       FROM comentarios
+      INNER JOIN usuarios ON comentarios.usuario_id = usuarios.id
       WHERE tema_id = ?
       ORDER BY fecha_creacion ASC
     `,

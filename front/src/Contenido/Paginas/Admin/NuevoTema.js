@@ -6,6 +6,7 @@ function NuevoTema() {
 
   const [tema, setTema] = useState("");
   const [imagen, setImagen] = useState();
+  const [previsualizarImagen, setPrevisualizarImagen] = useState();
 
   const [estado, setEstado] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -36,6 +37,7 @@ function NuevoTema() {
       setMensaje(datos.mensaje);
       setTema("");
       setImagen();
+      setPrevisualizarImagen();
     }
   };
   return (
@@ -55,9 +57,19 @@ function NuevoTema() {
         <input
           type="file"
           name="imagen"
-          onChange={(e) => setImagen(e.target.files[0])}
+          onChange={(e) => {
+            setImagen(e.target.files[0]);
+            setPrevisualizarImagen(e.target.files[0]);
+          }}
         />
       </label>
+      {previsualizarImagen && (
+        <img
+          src={URL.createObjectURL(previsualizarImagen)}
+          alt="imagen"
+          className="previewTema"
+        />
+      )}
       <button>Enviar</button>
       {estado === "error" && <p className="error">{mensaje}</p>}
       {estado === "ok" && <p>{mensaje}</p>}

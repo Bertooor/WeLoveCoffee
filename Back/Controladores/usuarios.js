@@ -221,8 +221,6 @@ const editarUsuario = async (req, res, next) => {
 
       await crearRuta(rutaDirectorioArchivos);
 
-      console.log(req.files.imagen);
-
       const archivo = sharp(req.files.imagen.data);
 
       nombreArchivo = `${uuid.v4()}_${req.files.imagen.name}`;

@@ -59,7 +59,7 @@ function NuevoComentario({ recarga, funcion }) {
             name="texto"
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            placeholder="Escribe aquí..."
+            placeholder="Escribe..."
           />
         </label>
         {previsualizarImagen && (

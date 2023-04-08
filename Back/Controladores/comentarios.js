@@ -27,8 +27,6 @@ const nuevoComentario = async (req, res, next) => {
 
       await crearRuta(rutaDirectorioArchivos);
 
-      console.log(req.files.imagen);
-
       const archivo = sharp(req.files.imagen.data);
 
       nombreArchivo = `${uuid.v4()}_${req.files.imagen.name}`;
@@ -83,6 +81,7 @@ const listaComentarios = async (req, res, next) => {
     const { tema_id } = req.params;
 
     const comentarios = await listaComentariosBD(tema_id);
+
     res.send({
       estado: "ok",
       mensaje: "Listado de comentarios.",

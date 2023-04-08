@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./NuevaContrasena.css";
 
 function NuevaContrasena() {
   const [correo, setCorreo] = useState("");
@@ -62,7 +63,7 @@ function NuevaContrasena() {
   };
 
   return (
-    <section>
+    <section className="nuevaContrasena">
       <h2>NuevaContraseña</h2>
       <form onSubmit={handleSubmit} className="form">
         <p>
@@ -104,8 +105,8 @@ function NuevaContrasena() {
         {estado2 === "error" && <p className="error">{mensaje2}</p>}
         {estado2 === "ok" && <p>{mensaje2}</p>}
 
-        <p>Si has completado ambos pasos...</p>
         <p>
+          Si has completado ambos pasos...
           <Link to="/iniciosesion">Inicia sesión</Link>
         </p>
       </form>

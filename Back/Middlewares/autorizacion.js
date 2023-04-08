@@ -4,7 +4,6 @@ const { generaError } = require("../funcionesAyuda");
 const autorizacionUsuario = (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    console.log("req.headers", req.headers);
 
     if (!authorization) {
       generaError(
@@ -23,7 +22,7 @@ const autorizacionUsuario = (req, res, next) => {
         401
       );
     }
-    console.log("token", token);
+
     // Creo propiedad con los datos del token
     req.autorizacion = token.id;
 

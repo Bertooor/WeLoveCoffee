@@ -48,7 +48,16 @@ section.conautorizacion .logout {
 }
 
 @media (min-width: 750px) {
+  .header {
+    padding: 1rem 2rem;
+    background-color: #8a6e37;
+  }
+
   .header h1 {
     display: block;
+  }
+
+  .header section a {
+    font-size: 1.3rem;
   }
 }

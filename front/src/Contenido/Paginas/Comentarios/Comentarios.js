@@ -4,6 +4,7 @@ import { useUsuario } from "../../../UsuarioContext";
 import BorrarComentario from "./BorrarComentario";
 import "./Comentarios.css";
 import NuevoComentario from "./NuevoComentario";
+import { fechaPersonalizada } from "../../../fechaPersonalizada";
 
 function Comentarios({ temas }) {
   const { id } = useParams();
@@ -39,7 +40,6 @@ function Comentarios({ temas }) {
         }
       );
       const datos = await respuesta.json();
-      console.log("datos: ", datos);
 
       if (datos.estado === "error") {
         setEstado("error");
@@ -59,6 +59,10 @@ function Comentarios({ temas }) {
           {comentarios &&
             comentarios.datos?.map((comentario) => (
               <li key={comentario.id}>
+                <h3 className="usuarioAvatar">
+                  {comentario.avatar}
+                  <span>{fechaPersonalizada(comentario.fecha_creacion)}</span>
+                </h3>
                 {comentario.imagen && (
                   <img
                     src={`${process.env.REACT_APP_API}/archivos/${comentario.imagen}`}

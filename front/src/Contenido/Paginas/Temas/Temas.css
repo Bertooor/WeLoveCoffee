@@ -29,9 +29,9 @@ section.temas li {
 
 section.temas img {
   display: none;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
+  height: 75px;
+  width: 75px;
+  border-radius: 20%;
   object-fit: cover;
 }
 
@@ -50,13 +50,51 @@ section.temas .checkbutton {
   right: 2rem;
 }
 
-section.temas #check {
-  display: none;
-}
-
 section.temas button {
   color: white;
   border: none;
   background-color: #a38341;
   font-size: 1rem;
+}
+
+@media (min-width: 750px) {
+  section.temas {
+    max-width: 30%;
+    background-color: #a38341;
+    color: white;
+    position: fixed;
+  }
+
+  section.temas h2 {
+    padding: 2rem;
+  }
+
+  section.temas ul.mostrar {
+    position: static;
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  section.temas ul.nomostrar {
+    position: static;
+    left: 0;
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  section.temas .checkbutton {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  section.temas img {
+    display: block;
+  }
+
+  section.temas a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 }

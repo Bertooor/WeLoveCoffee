@@ -38,8 +38,6 @@ const nuevoTema = async (req, res, next) => {
 
       await crearRuta(rutaDirectorioArchivos);
 
-      console.log(req.files.imagen);
-
       const archivo = sharp(req.files.imagen.data);
 
       nombreArchivo = `${uuid.v4()}_${req.files.imagen.name}`;
@@ -63,7 +61,6 @@ const borrarTema = async (req, res, next) => {
     const { tema_id } = req.params;
 
     const [tema] = await temaBD(tema_id);
-    console.log("tema: ", tema[0].imagen);
 
     if (tema[0].imagen && tema[0].imagen.length > 0) {
       await borrarImagen(tema[0].imagen);

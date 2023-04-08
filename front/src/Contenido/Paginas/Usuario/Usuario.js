@@ -109,7 +109,11 @@ function Usuario() {
             <input name="imagen" type="file" onChange={handleFile} />
           </label>
           {previsualizarImagen && (
-            <img src={previsualizarImagen} alt="imagen avatar" />
+            <img
+              src={previsualizarImagen}
+              alt="imagen avatar"
+              className="previewAvatar"
+            />
           )}
           <button>Modificar</button>
           {estado === "error" && <p className="error">{mensaje}</p>}

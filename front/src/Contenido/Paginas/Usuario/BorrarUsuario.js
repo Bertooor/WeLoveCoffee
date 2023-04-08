@@ -31,7 +31,9 @@ function BorrarUsuario() {
   };
   return (
     <>
-      <button onClick={handleDelete}>Borrar usuario</button>
+      <button onClick={handleDelete} className="borrarUsuario">
+        Eliminar usuario
+      </button>
       {estado === "error" && <p className="error">{mensaje}</p>}
     </>
   );

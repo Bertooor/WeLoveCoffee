@@ -65,12 +65,12 @@ function InicioSesion() {
         </label>
         <button>Iniciar sesión</button>
         {estado === "error" && <p className="error">{mensaje}</p>}
-        <p>¿No recuerdas tu contraseña?</p>
-        <p>
+        <p className="formEnlace">
+          ¿No recuerdas tu contraseña?
           <Link to="/nuevaContrasena">Nueva contraseña</Link>
         </p>
-        <p>Si aún no tienes cuenta en We Love Coffee...</p>
-        <p>
+        <p className="formEnlace">
+          Si aún no tienes cuenta en We Love Coffee...
           <Link to="/registro">Regístrate</Link>
         </p>
       </form>
