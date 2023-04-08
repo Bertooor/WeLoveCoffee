@@ -12,6 +12,7 @@ function Temas() {
   const [estado, setEstado] = useState("");
   const [mensaje, setMensaje] = useState("");
 
+  // Estado que me ayuda a recargar el contenido cada vez que lo modifico.
   const [llave, setLlave] = useState(0);
   const recarga = () => setLlave((k) => k + 1);
 

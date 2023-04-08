@@ -16,11 +16,12 @@ function Comentarios({ temas }) {
   const [estado, setEstado] = useState("");
   const [mensaje, setMensaje] = useState("");
 
+  // Estado que me ayuda a recargar el contenido cada vez que lo modifico.
   const [llave, setLlave] = useState(0);
   const recarga = () => setLlave((k) => k + 1);
 
+  // Función que hace scroll a una referencia creada en cualquier zona de la página.
   const ref = useRef(null);
-
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
