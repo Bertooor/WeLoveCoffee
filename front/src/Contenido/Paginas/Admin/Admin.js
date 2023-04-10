@@ -1,4 +1,4 @@
-import { useUsuario } from "../../../UsuarioContext";
+import { useUsuario } from "../../../Funciones/UsuarioContext";
 import NuevoTema from "./NuevoTema";
 
 function Admin() {

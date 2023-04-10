@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useUsuario } from "../../../UsuarioContext";
+import { useUsuario } from "../../../Funciones/UsuarioContext";
 
 function NuevoComentario({ recarga, funcion }) {
   const usuario = useUsuario();

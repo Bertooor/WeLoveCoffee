@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUsuario, useSetUsuario } from "../../../UsuarioContext";
+import { useUsuario, useSetUsuario } from "../../../Funciones/UsuarioContext";
 import { Link, Navigate } from "react-router-dom";
 
 function InicioSesion() {

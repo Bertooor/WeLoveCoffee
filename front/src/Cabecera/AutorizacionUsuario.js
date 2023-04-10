@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useUsuario, useSetUsuario } from "../UsuarioContext";
+import { useUsuario, useSetUsuario } from "../Funciones/UsuarioContext";
 
 function AutorizacionUsuario() {
   const usuario = useUsuario();

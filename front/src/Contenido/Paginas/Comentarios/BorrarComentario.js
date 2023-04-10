@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUsuario } from "../../../UsuarioContext";
+import { useUsuario } from "../../../Funciones/UsuarioContext";
 
 function BorrarComentario({ comentario_id, recarga }) {
   const usuario = useUsuario();

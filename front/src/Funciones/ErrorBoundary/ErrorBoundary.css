@@ -1,0 +1,7 @@
+.errorBoundary {
+  color: red;
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: #fff7e3;
+}

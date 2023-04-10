@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useUsuario } from "../../../UsuarioContext";
+import { useUsuario } from "../../../Funciones/UsuarioContext";
 import BorrarUsuario from "./BorrarUsuario";
 
 function Usuario() {

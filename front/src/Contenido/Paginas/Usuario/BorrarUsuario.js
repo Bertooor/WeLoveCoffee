@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSetUsuario, useUsuario } from "../../../UsuarioContext";
+import { useSetUsuario, useUsuario } from "../../../Funciones/UsuarioContext";
 
 function BorrarUsuario() {
   const usuario = useUsuario();

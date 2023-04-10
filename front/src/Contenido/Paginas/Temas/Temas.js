@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "./Temas.css";
 import Comentarios from "../Comentarios/Comentarios";
-import { useUsuario } from "../../../UsuarioContext";
+import { useUsuario } from "../../../Funciones/UsuarioContext";
 import BorrarTema from "../Admin/BorrarTema";
+import ErrorBoundary from "../../../Funciones/ErrorBoundary/ErrorBoundary";
 
 function Temas() {
   const usuario = useUsuario();
@@ -71,9 +72,18 @@ function Temas() {
         </nav>
         {estado === "error" && <p className="error">{mensaje}</p>}
       </section>
-      <Routes>
-        <Route path="/:id" element={<Comentarios temas={temas} />} />
-      </Routes>
+      <ErrorBoundary
+        fallback={
+          <section className="comentarios error">
+            <img src="/logo192.png" alt="imagen logo" />
+            <h1>Lo siento, sección de comentarios rota. Prueba después.</h1>
+          </section>
+        }
+      >
+        <Routes>
+          <Route path="/:id" element={<Comentarios temas={temas} />} />
+        </Routes>
+      </ErrorBoundary>
     </>
   );
 }
