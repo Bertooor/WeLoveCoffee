@@ -74,18 +74,6 @@ body main section button.borrarUsuario {
   color: red;
 }
 
-.usuarioAvatar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #1a078a;
-  padding-bottom: 0.5rem;
-}
-
-.usuarioAvatar span {
-  font-size: 0.8rem;
-}
-
 @media (min-width: 750px) {
   .form {
     width: 50%;

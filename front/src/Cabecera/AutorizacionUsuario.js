@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUsuario, useSetUsuario } from "../Funciones/UsuarioContext";
+import Avatar from "./Avatar";
 
 function AutorizacionUsuario() {
   const usuario = useUsuario();
@@ -12,17 +13,7 @@ function AutorizacionUsuario() {
           <Link to="/admin">Admin</Link>
         ) : null}
         <section className="imagenusuario">
-          {!usuario.usuario.imagen ? (
-            <img
-              src="/avatar-removebg-preview.png"
-              alt="imagen avatar por defecto"
-            />
-          ) : (
-            <img
-              src={`${process.env.REACT_APP_API}/archivos/${usuario.usuario.imagen}`}
-              alt="imagen usuario"
-            />
-          )}
+          <Avatar imagen={usuario.usuario.imagen} />
           <Link to="/usuario">
             <span>{usuario.usuario.avatar}</span>
           </Link>

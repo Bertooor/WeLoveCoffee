@@ -11,15 +11,46 @@ section.comentarios ul li {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+section.comentarios ul li header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #1a078a;
+  gap: 0.5rem;
+}
+
+section.comentarios ul li header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+section.comentarios ul li header span {
+  font-size: 0.8rem;
+}
+
 section.comentarios ul li p {
   padding: 0.5rem;
 }
 
-section.comentarios ul li button {
+section.comentarios ul li section.interaccion {
+  display: flex;
+  justify-content: space-around;
+}
+
+section.comentarios ul li section.interaccion button {
   border: none;
   background-color: #fff7e3;
-  margin-left: 90%;
   font-size: 1rem;
+}
+
+section.comentarios ul li img.avatarComentario {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin: 0;
 }
 
 section.comentarios ul li img {

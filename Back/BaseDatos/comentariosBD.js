@@ -29,7 +29,7 @@ const listaComentariosBD = async (tema_id) => {
 
     const [listaComentarios] = await conexion.query(
       `
-      SELECT comentarios.*, usuarios.avatar
+      SELECT comentarios.*, usuarios.avatar, usuarios.imagen AS imagenAvatar
       FROM comentarios
       INNER JOIN usuarios ON comentarios.usuario_id = usuarios.id
       WHERE tema_id = ?

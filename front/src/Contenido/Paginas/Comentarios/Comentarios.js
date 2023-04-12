@@ -6,6 +6,8 @@ import "./Comentarios.css";
 import NuevoComentario from "./NuevoComentario";
 import { fechaPersonalizada } from "../../../Funciones/fechaPersonalizada";
 import Spinner from "../../../Funciones/Spinner/Spinner";
+import Avatar from "../../../Cabecera/Avatar";
+import Votos from "./Votos";
 
 function Comentarios({ temas }) {
   const { id } = useParams();
@@ -53,6 +55,7 @@ function Comentarios({ temas }) {
         setEstado("ok");
         setComentarios(datos);
         setCargando(false);
+        console.log("datos: ", datos);
       }
     })();
   }, [id, usuario?.datos, llave]);
@@ -65,10 +68,14 @@ function Comentarios({ temas }) {
           {comentarios &&
             comentarios.datos?.map((comentario) => (
               <li key={comentario.id}>
-                <h3 className="usuarioAvatar">
-                  {comentario.avatar}
+                <header>
+                  <h3>
+                    <Avatar imagen={comentario.imagenAvatar} />
+                    {comentario.avatar}
+                  </h3>
                   <span>{fechaPersonalizada(comentario.fecha_creacion)}</span>
-                </h3>
+                </header>
+
                 {comentario.imagen && (
                   <img
                     src={`${process.env.REACT_APP_API}/archivos/${comentario.imagen}`}
@@ -76,13 +83,16 @@ function Comentarios({ temas }) {
                   />
                 )}
                 <p ref={ref}>{comentario.texto}</p>
-                {comentario.usuario_id === usuario.usuario.id ||
-                usuario.usuario.id === 1 ? (
-                  <BorrarComentario
-                    comentario_id={comentario.id}
-                    recarga={recarga}
-                  />
-                ) : null}
+                <section className="interaccion">
+                  <Votos />
+                  {comentario.usuario_id === usuario.usuario.id ||
+                  usuario.usuario.id === 1 ? (
+                    <BorrarComentario
+                      comentario_id={comentario.id}
+                      recarga={recarga}
+                    />
+                  ) : null}
+                </section>
               </li>
             ))}
         </ul>
