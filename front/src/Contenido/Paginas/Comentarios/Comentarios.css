@@ -41,7 +41,7 @@ section.comentarios ul li section.interaccion {
 
 section.comentarios ul li section.interaccion button {
   border: none;
-  background-color: #fff7e3;
+  background-color: white;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -57,6 +57,7 @@ section.comentarios ul li section.votos .positivo {
   display: flex;
   gap: 0.2rem;
   cursor: pointer;
+  align-items: center;
 }
 
 section.comentarios ul li section.votos .negativo {
@@ -65,6 +66,7 @@ section.comentarios ul li section.votos .negativo {
   display: flex;
   gap: 0.2rem;
   cursor: pointer;
+  align-items: center;
 }
 
 section.comentarios ul li img.avatarComentario {
