@@ -3,6 +3,9 @@ const {
   listaComentariosBD,
   comentarioBD,
   borrarComentarioBD,
+  votosComentarioMGBD,
+  votosComentarioNMGBD,
+  votosBD,
 } = require("../BaseDatos/comentariosBD");
 const { crearRuta, generaError, borrarImagen } = require("../funcionesAyuda");
 const path = require("path");
@@ -108,9 +111,63 @@ const verComentario = async (req, res, next) => {
   }
 };
 
+const votosComentarioMG = async (req, res, next) => {
+  try {
+    const { comentario_id } = req.params;
+
+    const comentario = await comentarioBD(comentario_id);
+
+    await votosComentarioMGBD(comentario.id, req.autorizacion);
+
+    res.send({
+      estado: "ok",
+      datos: req.autorizacion,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const votosComentarioNMG = async (req, res, next) => {
+  try {
+    const { comentario_id } = req.params;
+
+    const comentario = await comentarioBD(comentario_id);
+
+    await votosComentarioNMGBD(comentario.id, req.autorizacion);
+
+    res.send({
+      estado: "ok",
+      datos: req.autorizacion,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const votosComentarios = async (req, res, next) => {
+  try {
+    const { comentario_id } = req.params;
+
+    const comentario = await comentarioBD(comentario_id);
+
+    const votos = await votosBD(comentario.id);
+
+    res.send({
+      estado: "ok",
+      datos: votos,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   nuevoComentario,
   borrarComentario,
   listaComentarios,
   verComentario,
+  votosComentarioMG,
+  votosComentarioNMG,
+  votosComentarios,
 };

@@ -45,6 +45,7 @@ section.imagenusuario img {
 
 section.conautorizacion .logout {
   height: 30px;
+  cursor: pointer;
 }
 
 @media (min-width: 750px) {

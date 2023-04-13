@@ -25,6 +25,9 @@ const {
   borrarComentario,
   listaComentarios,
   verComentario,
+  votosComentarioNMG,
+  votosComentarioMG,
+  votosComentarios,
 } = require("./Controladores/comentarios");
 
 const { autorizacionUsuario, esAdmin } = require("./Middlewares/autorizacion");
@@ -55,6 +58,21 @@ app.get("/comentario/:comentario_id", autorizacionUsuario, verComentario);
 app.get("/:tema_id/comentario", autorizacionUsuario, listaComentarios);
 app.post("/:tema_id/comentario", autorizacionUsuario, nuevoComentario);
 app.delete("/comentario/:comentario_id", autorizacionUsuario, borrarComentario);
+app.get(
+  "/comentario/:comentario_id/votos",
+  autorizacionUsuario,
+  votosComentarios
+);
+app.post(
+  "/comentario/:comentario_id/megusta",
+  autorizacionUsuario,
+  votosComentarioMG
+);
+app.post(
+  "/comentario/:comentario_id/nomegusta",
+  autorizacionUsuario,
+  votosComentarioNMG
+);
 
 app.use((req, res) => {
   res.status(404).send({

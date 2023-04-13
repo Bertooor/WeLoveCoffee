@@ -62,7 +62,6 @@ const comentarioBD = async (comentario_id) => {
     if (comentario.length === 0) {
       generaError(`El comentario con id: ${comentario_id} no existe.`, 404);
     }
-
     return comentario[0];
   } finally {
     if (conexion) conexion.release();
@@ -111,10 +110,136 @@ const borrarComentarioBD = async (comentario_id) => {
   }
 };
 
+const votosComentarioMGBD = async (comentario_id, usuario_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [votoFavor] = await conexion.query(
+      `
+      SELECT id
+      FROM megusta 
+      WHERE comentario_id = ? AND usuario_id = ?
+    `,
+      [comentario_id, usuario_id]
+    );
+
+    if (votoFavor.length > 0) {
+      generaError("Ya has valorado este comentario", 400);
+    }
+
+    const [votoContra] = await conexion.query(
+      `
+      SELECT id
+      FROM nomegusta 
+      WHERE comentarios_id = ? AND usuarios_id = ?
+    `,
+      [comentario_id, usuario_id]
+    );
+
+    if (votoContra.length > 0) {
+      generaError("Ya has valorado este comentario", 400);
+    }
+
+    await conexion.query(
+      `
+        INSERT INTO megusta ( comentario_id, usuario_id)
+        VALUES (?,?)
+      `,
+      [comentario_id, usuario_id]
+    );
+    return;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const votosComentarioNMGBD = async (comentario_id, usuario_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [votoFavor] = await conexion.query(
+      `
+      SELECT id
+      FROM megusta 
+      WHERE comentario_id = ? AND usuario_id = ?
+    `,
+      [comentario_id, usuario_id]
+    );
+
+    if (votoFavor.length > 0) {
+      generaError("Ya has valorado este comentario", 400);
+    }
+
+    const [votoContra] = await conexion.query(
+      `
+      SELECT id
+      FROM nomegusta 
+      WHERE comentarios_id = ? AND usuarios_id = ?
+    `,
+      [comentario_id, usuario_id]
+    );
+
+    if (votoContra.length > 0) {
+      generaError("Ya has valorado este comentario", 400);
+    }
+
+    await conexion.query(
+      `
+        INSERT INTO nomegusta (comentarios_id, usuarios_id)
+        VALUES (?,?)
+      `,
+      [comentario_id, usuario_id]
+    );
+    return;
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
+const votosBD = async (comentario_id) => {
+  let conexion;
+
+  try {
+    conexion = await crearConexion();
+
+    const [votosPositivos] = await conexion.query(
+      `
+      SELECT COUNT(id) AS votosPositivos
+      FROM megusta
+      WHERE comentario_id = ?
+    `,
+      [comentario_id]
+    );
+
+    const [votosNegativos] = await conexion.query(
+      `
+      SELECT COUNT(id) As votosNegativos
+      FROM nomegusta
+      WHERE comentarios_id = ?
+    `,
+      [comentario_id]
+    );
+
+    return {
+      ...votosPositivos[0],
+      ...votosNegativos[0],
+    };
+  } finally {
+    if (conexion) conexion.release();
+  }
+};
+
 module.exports = {
   nuevoComentarioBD,
   listaComentariosBD,
   comentarioBD,
   borrarComentarioBD,
   imagenesUsuarioBD,
+  votosComentarioMGBD,
+  votosComentarioNMGBD,
+  votosBD,
 };

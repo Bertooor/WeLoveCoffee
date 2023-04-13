@@ -11,6 +11,12 @@ async function main() {
     console.log("Borrando las tablas existentes...");
 
     await conexion.query(`
+      DROP TABLE IF EXISTS nomegusta
+    `);
+    await conexion.query(`
+      DROP TABLE IF EXISTS megusta
+    `);
+    await conexion.query(`
         DROP TABLE IF EXISTS comentarios
     `);
     await conexion.query(`
@@ -23,40 +29,56 @@ async function main() {
     console.log("Creando tablas...");
 
     await conexion.query(`
-        CREATE TABLE usuarios (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            avatar VARCHAR(100) UNIQUE NOT NULL,
-            imagen VARCHAR(150),
-            correo VARCHAR(100) UNIQUE NOT NULL,
-            contrasena VARCHAR(512) NOT NULL,
-            rol ENUM('admin', 'normal') DEFAULT 'normal' NOT NULL,
-            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-            codigoRegistro VARCHAR(100),
-            usuarioActivo BOOLEAN DEFAULT false,
-            codigoRecuperacion VARCHAR(100)
-        )
+      CREATE TABLE usuarios (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        avatar VARCHAR(100) UNIQUE NOT NULL,
+        imagen VARCHAR(150),
+        correo VARCHAR(100) UNIQUE NOT NULL,
+        contrasena VARCHAR(512) NOT NULL,
+        rol ENUM('admin', 'normal') DEFAULT 'normal' NOT NULL,
+        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+        codigoRegistro VARCHAR(100),
+        usuarioActivo BOOLEAN DEFAULT false,
+        codigoRecuperacion VARCHAR(100)
+      )
     `);
 
     await conexion.query(`
-        CREATE TABLE temas (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            tema VARCHAR(100) UNIQUE NOT NULL,
-            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-            imagen VARCHAR(150)
-        )
+      CREATE TABLE temas (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        tema VARCHAR(100) UNIQUE NOT NULL,
+        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+        imagen VARCHAR(150)
+      )
     `);
 
     await conexion.query(`
-        CREATE TABLE comentarios (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            usuario_id INT NOT NULL,
-            tema_id INT NOT NULL,
-            texto VARCHAR(1000) NOT NULL,
-            imagen VARCHAR(150),
-            fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-            FOREIGN KEY (tema_id) REFERENCES temas(id)
-        )
+      CREATE TABLE comentarios (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        usuario_id INT NOT NULL,
+        tema_id INT NOT NULL,
+        texto VARCHAR(1000) NOT NULL,
+        imagen VARCHAR(150),
+        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+        FOREIGN KEY (tema_id) REFERENCES temas(id)
+      )
+    `);
+
+    await conexion.query(`
+      CREATE TABLE megusta (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        comentario_id INT NOT NULL,
+        usuario_id INT NOT NULL
+      )
+    `);
+
+    await conexion.query(`
+      CREATE TABLE nomegusta (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        comentarios_id INT NOT NULL,
+        usuarios_id INT NOT NULL
+      )
     `);
 
     console.log("Creo usuario admin...");

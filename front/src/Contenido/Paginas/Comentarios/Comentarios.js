@@ -55,7 +55,6 @@ function Comentarios({ temas }) {
         setEstado("ok");
         setComentarios(datos);
         setCargando(false);
-        console.log("datos: ", datos);
       }
     })();
   }, [id, usuario?.datos, llave]);
@@ -84,7 +83,7 @@ function Comentarios({ temas }) {
                 )}
                 <p ref={ref}>{comentario.texto}</p>
                 <section className="interaccion">
-                  <Votos />
+                  <Votos id={comentario.id} />
                   {comentario.usuario_id === usuario.usuario.id ||
                   usuario.usuario.id === 1 ? (
                     <BorrarComentario

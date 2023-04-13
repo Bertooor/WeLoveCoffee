@@ -27,6 +27,9 @@
 - GET /:tema_id/comentario => Lista de comentarios sobre un tema.
 - POST /:tema_id/comentario => Crea un comentario en un tema(con 1 imagen opcional).
 - DELETE /comentario/:comentario_id => Borra un comentario(usuario que lo creó / admin).
+- GET /comentario/:comentario_id/votos => Cantidad de votos de un comentario.
+- POST /comentario/:comentario_id/megusta => Emite votos positivos a los comentarios.
+- POST /comentario/:comentario_id/nomegusta => Emite votos negativos a los comentarios.
 
 ## Base de datos
 

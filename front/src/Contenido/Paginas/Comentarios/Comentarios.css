@@ -43,6 +43,28 @@ section.comentarios ul li section.interaccion button {
   border: none;
   background-color: #fff7e3;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+section.comentarios ul li section.votos {
+  display: flex;
+  gap: 1rem;
+}
+
+section.comentarios ul li section.votos .positivo {
+  color: #1a078a;
+  font-size: 1.1rem;
+  display: flex;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+section.comentarios ul li section.votos .negativo {
+  color: red;
+  font-size: 1.1rem;
+  display: flex;
+  gap: 0.2rem;
+  cursor: pointer;
 }
 
 section.comentarios ul li img.avatarComentario {
@@ -83,6 +105,7 @@ section.comentarios form button {
   font-size: 1.6rem;
   border: none;
   background-color: #fff7e3;
+  cursor: pointer;
 }
 
 section.comentarios form .imagenPrevia {
@@ -91,6 +114,7 @@ section.comentarios form .imagenPrevia {
 
 section.comentarios form .botonImagen {
   font-size: 2rem;
+  cursor: pointer;
 }
 
 section.comentarios .preview {
